@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#bfe1f3"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/favicon.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="몬스터 단어장"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>몬스터 단어장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eaf4fa;--txt:#1b2a33;--shell:#bfe1f3;--edge:#8db8d3;--scr:#d6dbca;--ink:#1f2622;--key:#f6f3e6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a22;--txt:#d7e6ef;--shell:#2d4b5f;--edge:#1c3342;--scr:#bcc3b0}}
+:root[data-theme="dark"]{--bg:#0f1a22;--txt:#d7e6ef;--shell:#2d4b5f;--edge:#1c3342;--scr:#bcc3b0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:'Gowun Dodum',system-ui,sans-serif;min-height:100vh;padding:16px}
+main{max-width:360px;margin:0 auto}
+.dev{background:var(--shell);border:3px solid var(--edge);border-radius:28px 28px 40px 40px;padding:18px 18px 22px;box-shadow:0 6px 0 var(--edge)}
+.scr{background:var(--scr);color:var(--ink);border:3px solid var(--edge);border-radius:12px;min-height:310px;padding:12px;display:flex;flex-direction:column;font-family:'DotGothic16','Gowun Dodum',monospace}
+.top{display:flex;gap:10px;align-items:center}
+#pet{width:64px;flex:none}
+.st{flex:1;font-size:15px}
+.bar{height:6px;border:2px solid var(--ink);margin-top:4px}
+#xp{height:100%;background:var(--ink);width:0}
+.card{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:10px;padding:8px 0}
+#w{font-size:34px;word-break:break-word}
+#m{font-size:21px;font-family:'Gowun Dodum','DotGothic16',sans-serif;min-height:56px}
+.sp{background:none;border:2px solid var(--ink);color:var(--ink);border-radius:8px;padding:2px 10px;font:inherit;font-size:14px;cursor:pointer}
+.info{font-size:13px}
+.keys{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:10px;margin-top:16px}
+.keys button{background:var(--key);color:var(--ink);border:3px solid var(--edge);border-radius:16px;padding:14px 4px;font:inherit;font-size:17px;cursor:pointer;box-shadow:0 3px 0 var(--edge)}
+.keys button:active{transform:translateY(3px);box-shadow:none}
+button:focus-visible,textarea:focus-visible{outline:3px solid var(--txt);outline-offset:2px}
+.tabs{display:flex;gap:6px;margin:18px 0 10px}
+.tabs button{flex:1;background:none;color:var(--txt);border:2px solid var(--edge);border-radius:12px;padding:8px 2px;font:inherit;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--edge);color:#fff}
+section p{font-size:14px;line-height:1.5;margin:0 0 8px}
+textarea{width:100%;height:220px;background:var(--key);color:var(--ink);border:3px solid var(--edge);border-radius:12px;padding:10px;font:inherit;font-size:16px}
+.row{display:flex;gap:8px;margin-top:8px}
+.row button,.ev button{flex:1;background:var(--key);color:var(--ink);border:3px solid var(--edge);border-radius:12px;padding:10px;font:inherit;cursor:pointer}
+.ev{display:flex;gap:8px;margin-top:10px}
+.ev button svg{width:56px;display:block;margin:0 auto 4px}
+#big{width:160px;margin:0 auto 6px}
+#pn{text-align:center;font-size:20px;margin-bottom:10px}
+.ml{display:flex;align-items:center;gap:8px;font-size:14px;margin:6px 0}
+.ml b{width:34px;font-weight:400}
+.m{flex:1;height:12px;border:2px solid var(--edge);border-radius:6px;overflow:hidden}
+.m i{display:block;height:100%;background:var(--txt);width:0}
+#say,#msg,#dn{font-size:14px;min-height:20px;margin-top:6px}
+#dg{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:8px}
+.c{aspect-ratio:1;border:2px solid var(--edge);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;padding:2px;opacity:.9}
+.c svg{width:100%}
+#gm{margin-top:14px;font-size:14px;text-align:center}#gm button,.ch button{background:var(--key);color:var(--ink);border:3px solid var(--edge);border-radius:12px;padding:12px 16px;font:inherit;cursor:pointer}#gm button{margin-top:6px}#gq{font-size:22px;text-align:center;margin:12px 0}.ch{display:grid;gap:8px}.ch button{font-size:18px}.ch .ok{background:var(--edge);color:#fff}.ch .no{opacity:.4}
+.mu{background:none;border:2px solid var(--edge);color:var(--txt);border-radius:10px;padding:4px 10px;font:inherit;font-size:13px;cursor:pointer}
+#fx{position:fixed;inset:0;z-index:9;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;animation:fl .6s}#fx[hidden]{display:none}#fxs{width:230px;animation:gr 1.4s}#fxt{font-size:24px;text-align:center;animation:fi 1.4s}
+@keyframes fl{0%{background:#fff}100%{background:var(--bg)}}@keyframes gr{0%{transform:scale(.2) rotate(-20deg);filter:brightness(6)}60%{transform:scale(1.2)}100%{transform:scale(1);filter:none}}@keyframes fi{0%,40%{opacity:0}100%{opacity:1}}
+.bb{animation:bob 2.6s ease-in-out infinite}.gl{filter:drop-shadow(0 0 3px var(--gl))}.bb.g7{animation:bob 2.6s ease-in-out infinite,pulse 2s ease-in-out infinite}
+.c svg.bb,.ev svg.bb{animation:none}.c.lk svg.bb{filter:brightness(0);opacity:.2}
+@keyframes bob{50%{transform:translateY(-3px)}}@keyframes pulse{50%{filter:drop-shadow(0 0 10px var(--gl))}}
+.k4{grid-auto-flow:row;grid-template-columns:1fr 1fr}.keys.k4 button{font-size:15px;padding:12px 4px;word-break:keep-all}.keys .ok{background:var(--edge);color:#fff}.keys .no{opacity:.4}
+.hop{animation:hop .5s}
+@keyframes hop{30%{transform:translateY(-10px)}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head>
+<body><main>
+<div class="dev">
+  <div class="scr">
+    <div class="top"><div id="pet"></div>
+      <div class="st"><span id="hp"></span> <span id="lv"></span><div class="bar"><div id="xp"></div></div></div></div>
+    <div class="card"><div id="w"></div><div id="m"></div><button class="sp" id="sp" hidden>발음 듣기</button><div class="info" id="info"></div></div>
+  </div>
+  <div class="keys" id="keys"></div>
+</div>
+<div style="text-align:right;margin-top:10px"><button id="mu" class="mu"></button></div>
+<div id="gm"></div>
+<section id="pg" hidden><p id="gh"></p><div id="gq"></div><div class="ch" id="gc"></div><div id="gr" role="status"></div></section>
+<div class="tabs"><button id="t1" aria-pressed="true">학습</button><button id="t2" aria-pressed="false">펫</button><button id="t3" aria-pressed="false">도감</button><button id="t4" aria-pressed="false">단어장</button></div>
+<section id="p2" hidden>
+  <div id="big"></div><div id="pn"></div>
+  <div class="ml"><b>밥</b><div class="m"><i id="f"></i></div></div>
+  <div class="ml"><b>놀이</b><div class="m"><i id="u"></i></div></div>
+  <p id="ck"></p>
+  <div class="row"><button id="fd">밥주기 (쿠키 1개)</button><button id="pl">놀아주기</button></div>
+  <div id="say" role="status"></div>
+  <p>밥과 놀이가 둘 다 절반 이상이고 하트가 있으면 경험치를 2배로 받아요. 놀면 배가 고파지니 쿠키로 밥을 챙겨 주세요. 쿠키는 퀴즈를 맞힐 때마다 1개씩 생겨요.</p>
+  <div class="ev" id="evo"></div>
+</section>
+<section id="p3" hidden>
+  <p id="dc"></p><div id="dn" role="status"></div><div id="dg"></div>
+</section>
+<section id="p4" hidden>
+  <p>한 줄에 하나씩 "단어, 뜻" 형식으로 적으세요. 저장해도 기존 단어의 학습 진도는 유지돼요.</p>
+  <textarea id="ta" spellcheck="false"></textarea>
+  <div class="row"><button id="sv">저장</button><button id="rs">진도 초기화</button></div>
+  <p>기기를 바꾸거나 앱을 지우면 진도가 사라질 수 있어요. 가끔 백업 파일을 저장해 두세요.</p>
+  <div class="row"><button id="ex">백업 저장</button><button id="im">백업 불러오기</button></div><input type="file" id="fi" accept=".json,application/json" hidden>
+  <div id="msg" role="status"></div>
+</section>
+</main>
+<div id="fx" hidden role="status"><div id="fxs"></div><div id="fxt"></div></div>
+<script>
+const $=id=>document.getElementById(id),now=()=>Date.now();
+const DEF="abandon, 포기하다\nbenefit, 혜택, 이익\nconsume, 소비하다\ndiminish, 줄이다\nevident, 분명한\nfluctuate, 변동하다\ngenerate, 만들어 내다\nhesitate, 망설이다\ninevitable, 피할 수 없는\njustify, 정당화하다\naccommodate, 수용하다\nacquire, 얻다\nadequate, 충분한\nadvocate, 옹호하다\nallocate, 할당하다\nanticipate, 예상하다\napparent, 명백한\nauthentic, 진짜의\ncomprehensive, 포괄적인\nconcentrate, 집중하다\nconsequence, 결과\ncontribute, 기여하다\ndeliberate, 고의의\ndemonstrate, 보여 주다\ndistinguish, 구별하다\nemerge, 나타나다\nenhance, 높이다\nestimate, 추정하다\nexpand, 확장하다\ngenuine, 진정한\nimpose, 부과하다\nindicate, 나타내다\nmaintain, 유지하다\nnegotiate, 협상하다\nobtain, 얻다\noppose, 반대하다\nparticipate, 참여하다\nreluctant, 꺼리는\nsufficient, 충분한\nvulnerable, 취약한";
+const IV=[0,864e5,3*864e5,7*864e5,14*864e5,30*864e5];
+const DEF2="cat 고양이|dog 개|bird 새|fish 물고기|horse 말|cow 소|pig 돼지|sheep 양|duck 오리|chicken 닭|rabbit 토끼|mouse 쥐|lion 사자|tiger 호랑이|bear 곰|monkey 원숭이|elephant 코끼리|giraffe 기린|zebra 얼룩말|snake 뱀|frog 개구리|turtle 거북이|whale 고래|shark 상어|dolphin 돌고래|butterfly 나비|bee 벌|ant 개미|spider 거미|wolf 늑대|fox 여우|deer 사슴|owl 부엉이|eagle 독수리|penguin 펭귄|camel 낙타|goat 염소|squirrel 다람쥐|crab 게|insect 곤충|apple 사과|banana 바나나|orange 오렌지|grape 포도|lemon 레몬|peach 복숭아|strawberry 딸기|watermelon 수박|tomato 토마토|potato 감자|carrot 당근|onion 양파|cabbage 양배추|corn 옥수수|rice 쌀|bread 빵|cheese 치즈|butter 버터|egg 달걀|milk 우유|juice 주스|water 물|tea 차|coffee 커피|sugar 설탕|salt 소금|soup 수프|salad 샐러드|cake 케이크|cookie 쿠키|candy 사탕|chocolate 초콜릿|pizza 피자|noodle 국수|meat 고기|beef 소고기|pork 돼지고기|breakfast 아침 식사|lunch 점심 식사|dinner 저녁 식사|snack 간식|dessert 후식|hungry 배고픈|thirsty 목마른|delicious 맛있는|sweet 달콤한|sour 신|bitter 쓴|spicy 매운|fresh 신선한|family 가족|father 아버지|mother 어머니|parent 부모|brother 형제|sister 자매|grandfather 할아버지|grandmother 할머니|uncle 삼촌|aunt 이모|cousin 사촌|baby 아기|child 어린이|boy 소년|girl 소녀|man 남자|woman 여자|friend 친구|neighbor 이웃|teacher 선생님|student 학생|doctor 의사|nurse 간호사|farmer 농부|singer 가수|dancer 무용수|artist 화가|scientist 과학자|police 경찰|driver 운전사|head 머리|face 얼굴|eye 눈|ear 귀|nose 코|mouth 입|tooth 이|hair 머리카락|neck 목|shoulder 어깨|arm 팔|hand 손|finger 손가락|leg 다리|foot 발|knee 무릎|back 등|stomach 배|heart 심장|brain 뇌|skin 피부|bone 뼈|blood 피|healthy 건강한|sick 아픈|pain 통증|medicine 약|fever 열|school 학교|class 수업|classroom 교실|lesson 수업|homework 숙제|exam 시험|question 질문|answer 대답|book 책|notebook 공책|pencil 연필|pen 펜|eraser 지우개|ruler 자|desk 책상|chair 의자|library 도서관|subject 과목|math 수학|science 과학|history 역사|art 미술|music 음악|learn 배우다|study 공부하다|teach 가르치다|read 읽다|write 쓰다|spell 철자를 쓰다|draw 그리다|practice 연습하다|grade 성적|house 집|home 가정|room 방|kitchen 부엌|bathroom 욕실|bedroom 침실|door 문|window 창문|wall 벽|floor 바닥|roof 지붕|stairs 계단|garden 정원|table 탁자|bed 침대|sofa 소파|lamp 등|clock 시계|mirror 거울|key 열쇠|box 상자|bag 가방|basket 바구니|cup 컵|plate 접시|bowl 그릇|spoon 숟가락|fork 포크|knife 칼|bottle 병|umbrella 우산|towel 수건|soap 비누|blanket 담요|pillow 베개|phone 전화기|computer 컴퓨터|television 텔레비전|camera 카메라|picture 그림|sun 해|moon 달|star 별|sky 하늘|cloud 구름|rain 비|snow 눈|wind 바람|storm 폭풍|thunder 천둥|fog 안개|rainbow 무지개|weather 날씨|hot 뜨거운|warm 따뜻한|cool 시원한|cold 추운|spring 봄|summer 여름|autumn 가을|winter 겨울|mountain 산|river 강|lake 호수|sea 바다|beach 해변|island 섬|forest 숲|tree 나무|flower 꽃|grass 풀|leaf 잎|rock 바위|sand 모래|field 들판|desert 사막|earth 지구|fire 불|city 도시|town 마을|country 나라|street 거리|road 도로|bridge 다리|park 공원|zoo 동물원|museum 박물관|hospital 병원|bank 은행|market 시장|shop 가게|restaurant 식당|hotel 호텔|airport 공항|station 역|church 교회|farm 농장|office 사무실|factory 공장|bus 버스|train 기차|subway 지하철|taxi 택시|car 자동차|bike 자전거|ship 배|plane 비행기|truck 트럭|ticket 표|map 지도|red 빨간|blue 파란|yellow 노란|green 초록의|black 검은|white 하얀|brown 갈색의|pink 분홍의|purple 보라색의|gray 회색의|gold 금|silver 은|color 색|circle 원|square 정사각형|triangle 삼각형|line 선|point 점|shape 모양|size 크기|big 큰|small 작은|tall 키가 큰|short 짧은|long 긴|wide 넓은|narrow 좁은|heavy 무거운|light 가벼운|thick 두꺼운|thin 얇은|round 둥근|half 절반|zero 영|time 시간|day 날|night 밤|morning 아침|afternoon 오후|evening 저녁|today 오늘|tomorrow 내일|yesterday 어제|week 주|month 달|year 해|hour 한 시간|minute 분|second 초|early 이른|late 늦은|always 항상|usually 보통|often 자주|sometimes 때때로|never 결코 ~않다|again 다시|soon 곧|already 이미|past 과거|future 미래|weekend 주말|go 가다|come 오다|run 달리다|walk 걷다|jump 뛰다|swim 수영하다|fly 날다|climb 오르다|sit 앉다|stand 서다|sleep 자다|wake 깨다|eat 먹다|drink 마시다|cook 요리하다|wash 씻다|clean 청소하다|open 열다|close 닫다|push 밀다|pull 당기다|throw 던지다|catch 잡다|carry 나르다|bring 가져오다|take 가지고 가다|give 주다|get 얻다|buy 사다|sell 팔다|pay 지불하다|make 만들다|build 짓다|break 깨뜨리다|fix 고치다|cut 자르다|find 찾다|lose 잃어버리다|keep 지니다|hold 잡고 있다|put 놓다|look 보다|watch 지켜보다|see 보이다|hear 들리다|listen 귀 기울이다|speak 말하다|say 말하다|tell 말해 주다|ask 묻다|call 부르다|shout 소리치다|sing 노래하다|dance 춤추다|play 놀다|laugh 웃다|cry 울다|smile 미소 짓다|love 사랑하다|like 좋아하다|hate 미워하다|want 원하다|need 필요하다|know 알다|think 생각하다|remember 기억하다|forget 잊다|understand 이해하다|believe 믿다|help 돕다|wait 기다리다|start 시작하다|stop 멈추다|finish 끝내다|try 노력하다|use 사용하다|work 일하다|visit 방문하다|travel 여행하다|meet 만나다|leave 떠나다|arrive 도착하다|return 돌아오다|choose 고르다|decide 결정하다|change 바꾸다|grow 자라다|die 죽다|live 살다|good 좋은|bad 나쁜|new 새로운|old 오래된|young 어린|happy 행복한|sad 슬픈|angry 화난|afraid 두려운|tired 피곤한|busy 바쁜|free 자유로운|easy 쉬운|difficult 어려운|hard 단단한|soft 부드러운|dirty 더러운|quiet 조용한|loud 시끄러운|fast 빠른|slow 느린|strong 강한|weak 약한|rich 부유한|poor 가난한|kind 친절한|brave 용감한|clever 영리한|lazy 게으른|funny 웃기는|serious 진지한|polite 예의 바른|shy 수줍은|honest 정직한|careful 조심스러운|safe 안전한|dangerous 위험한|famous 유명한|special 특별한|important 중요한|different 다른|same 같은|empty 빈|full 가득 찬|ready 준비된|wrong 틀린|right 옳은|true 사실인|beautiful 아름다운|ugly 못생긴|lucky 운이 좋은|lonely 외로운|excited 신이 난|bored 지루해하는|proud 자랑스러운|nervous 긴장한|wet 젖은|dry 마른|dark 어두운|bright 밝은|shirt 셔츠|pants 바지|skirt 치마|dress 원피스|coat 코트|jacket 재킷|hat 모자|shoes 신발|socks 양말|gloves 장갑|scarf 목도리|glasses 안경|ring 반지|pocket 주머니|button 단추|uniform 교복|sweater 스웨터|boots 부츠|sport 운동|soccer 축구|baseball 야구|basketball 농구|tennis 테니스|game 경기|team 팀|ball 공|race 경주|winner 승자|prize 상|hobby 취미|movie 영화|story 이야기|song 노래|party 파티|gift 선물|toy 장난감|holiday 휴일|vacation 방학|trip 여행|camp 야영|fishing 낚시|paint 칠하다|magic 마술|adventure 모험|dream 꿈|wish 소원|idea 생각|name 이름|age 나이|word 단어|letter 글자|number 숫자|sentence 문장|language 언어|news 소식|message 메시지|problem 문제|reason 이유|rule 규칙|secret 비밀|truth 진실|mistake 실수|accident 사고|danger 위험|peace 평화|war 전쟁|king 왕|queen 여왕|prince 왕자|princess 공주|hero 영웅|ghost 유령|giant 거인|power 힘|energy 에너지|money 돈|price 가격|job 직업|life 삶|world 세계|space 우주|nature 자연|culture 문화|because 왜냐하면|but 그러나|and 그리고|or 또는|if 만약|when ~할 때|before ~전에|after ~후에|between ~사이에|under ~아래에|behind ~뒤에|near 가까운|far 먼|inside 안에|outside 밖에|across 가로질러|through 통과하여|around 주위에|without ~없이|almost 거의|only 오직|also 또한|maybe 아마|really 정말|very 매우|too 너무";
+const DEF3="able 할 수 있는|accept 받아들이다|achieve 이루다|action 행동|add 더하다|adult 어른|advice 충고|agree 동의하다|alone 혼자|amazing 놀라운|ancient 고대의|appear 나타나다|area 지역|argue 다투다|army 군대|arrange 정리하다|attack 공격하다|attention 주의|audience 관객|author 작가|available 이용 가능한|average 평균|avoid 피하다|award 상|bake 굽다|balance 균형|battle 전투|beauty 아름다움|behavior 행동|belong 속하다|bend 구부리다|birth 탄생|blind 눈 먼|boil 끓이다|border 국경|borrow 빌리다|boss 상사|branch 가지|breathe 숨 쉬다|brush 솔|burn 타다|business 사업|calm 차분한|cancel 취소하다|capital 수도|captain 선장|career 경력|cause 원인|celebrate 축하하다|center 중심|century 세기|certain 확실한|chance 기회|character 성격|cheap 싼|check 확인하다|cheer 환호하다|choice 선택|citizen 시민|climate 기후|collect 모으다|college 대학|common 흔한|compare 비교하다|compete 경쟁하다|complete 완성하다|condition 상태|connect 연결하다|contest 대회|continue 계속하다|control 통제하다|copy 복사하다|correct 정확한|courage 용기|course 과정|crowd 군중|damage 손상|dead 죽은|deal 거래|debate 토론|delay 미루다|depend 의존하다|describe 묘사하다|design 설계하다|destroy 파괴하다|detail 세부 사항|develop 발전하다|diary 일기|diet 식단|direction 방향|discover 발견하다|discuss 토론하다|disease 질병|distance 거리|divide 나누다|doubt 의심|dust 먼지|duty 의무|earn 벌다|edge 가장자리|education 교육|effect 효과|effort 노력|electric 전기의|empire 제국|encourage 격려하다|enemy 적|engine 엔진|enjoy 즐기다|enter 들어가다|entire 전체의|environment 환경|equal 동등한|escape 탈출하다|event 행사|exact 정확한|example 예|excellent 훌륭한|exchange 교환하다|exercise 운동|exist 존재하다|expect 기대하다|experience 경험|experiment 실험|explain 설명하다|explore 탐험하다|express 표현하다|fail 실패하다|fair 공정한|fall 떨어지다|fame 명성|fear 두려움|feature 특징|feed 먹이를 주다|feel 느끼다|fight 싸우다|final 마지막의|flag 깃발|flat 평평한|flight 비행|float 뜨다|flow 흐르다|focus 초점|fold 접다|follow 따르다|force 힘|foreign 외국의|form 형태|fortune 행운|freedom 자유|friendly 친근한|fuel 연료|fun 재미|furniture 가구|garbage 쓰레기|gather 모이다|general 일반적인|gentle 온화한|goal 목표|government 정부|grateful 고마워하는|guard 지키다|guess 추측하다|guest 손님|guide 안내하다|habit 습관|handle 다루다|hang 걸다|health 건강|height 높이|helpful 도움이 되는|hide 숨다|honor 명예|hope 희망하다|human 인간|hurry 서두르다|imagine 상상하다|improve 향상시키다|include 포함하다|increase 증가하다|information 정보|injury 부상|instead 대신에|interest 관심|invent 발명하다|invite 초대하다|join 가입하다|journey 여정|judge 판단하다|jungle 정글|knowledge 지식|lack 부족|land 땅|law 법|layer 층|lead 이끌다|legend 전설|length 길이|liquid 액체|local 지역의|machine 기계|manage 관리하다|material 재료|measure 재다|member 구성원|memory 기억|mention 언급하다|method 방법|middle 중간|mind 마음|mix 섞다|modern 현대의|moment 순간|mood 기분|motion 움직임|mystery 수수께끼|natural 자연의|necessary 필요한|noble 고귀한|normal 정상적인|notice 알아차리다|object 물건|occur 일어나다|offer 제안하다|opinion 의견|opportunity 기회|order 명령하다|ordinary 평범한|origin 기원|oxygen 산소|pack 싸다|pair 한 쌍|pass 지나가다|path 길|patient 환자|pattern 패턴|perform 공연하다|period 기간|permit 허락하다|person 사람|pick 고르다|plan 계획|planet 행성|plant 식물|pleasant 즐거운|pour 붓다|prepare 준비하다|present 선물|press 누르다|pretty 예쁜|prevent 막다|private 사적인|probably 아마도|produce 생산하다|promise 약속|protect 보호하다|public 공공의|punish 벌주다|purpose 목적|quality 품질|quick 빠른|raise 올리다|range 범위|rare 드문|reach 도달하다|receive 받다|recent 최근의|record 기록하다|reduce 줄이다|region 지역|relax 휴식하다|remain 남아 있다|repair 수리하다|repeat 반복하다|reply 대답하다|report 보고하다|rescue 구조하다|respect 존경하다|result 결과|review 복습하다|reward 보상|rhythm 리듬|risk 위험|role 역할|route 길|sail 항해하다|save 구하다|scene 장면|schedule 일정|search 찾다|season 계절|seat 좌석|select 선택하다|sense 감각|separate 분리하다|serve 제공하다|several 몇몇의|shake 흔들다|share 나누다|sharp 날카로운|shelf 선반|shine 빛나다|shock 충격|shoot 쏘다|signal 신호|silent 조용한|similar 비슷한|simple 간단한|single 하나의|skill 기술|slide 미끄러지다|smell 냄새|smooth 매끄러운|society 사회|soldier 군인|solve 해결하다|source 원천|spend 쓰다|spirit 정신|spread 퍼지다|steal 훔치다|step 걸음|stick 막대기|stone 돌|strange 이상한|stream 개울|stress 스트레스|strike 치다|structure 구조|success 성공|suddenly 갑자기|suggest 제안하다|supply 공급하다|support 지지하다|surface 표면|surprise 놀라게 하다|survive 살아남다|symbol 상징|talent 재능|task 일|taste 맛|thank 감사하다|theme 주제|thought 생각|thousand 천|threat 위협|tool 도구|touch 만지다|tour 관광|trade 거래|trap 덫|treasure 보물|treat 대하다|trick 속임수|trouble 문제|trust 신뢰하다|twin 쌍둥이|unique 독특한|unit 단위|universe 우주|useful 유용한|value 가치|various 다양한|view 경치|voice 목소리|volume 음량|warn 경고하다|waste 낭비하다|wave 파도|weapon 무기|wealth 부|weight 무게|welcome 환영하다|whole 전체의|wild 야생의|wisdom 지혜|wonder 궁금하다|worry 걱정하다|worth ~의 가치가 있는|wrap 포장하다|yard 마당|youth 청춘";
+const DEF4="abstract 추상적인|absorb 흡수하다|abundant 풍부한|access 접근|accompany 동행하다|accomplish 해내다|accurate 정확한|adapt 적응하다|adjust 조정하다|administration 행정|admire 존경하다|admit 인정하다|adopt 채택하다|advance 진보|advantage 이점|affect 영향을 미치다|afford 여유가 되다|agency 기관|aggressive 공격적인|aim 목표로 하다|alert 경계하는|alternative 대안|ambition 야망|analyze 분석하다|annual 해마다의|anxiety 불안|appeal 호소하다|appetite 식욕|applicant 지원자|appreciate 감사하다|approach 접근하다|appropriate 적절한|approve 승인하다|aspect 측면|assemble 모으다|assess 평가하다|asset 자산|assign 배정하다|assist 돕다|assume 가정하다|assure 보장하다|atmosphere 분위기|attach 붙이다|attempt 시도하다|attitude 태도|attract 끌다|attribute 속성|authority 권위|bargain 흥정|barrier 장벽|basis 기초|bias 편견|bind 묶다|bold 대담한|boost 북돋우다|brief 간단한|broad 넓은|budget 예산|burden 부담|capable 유능한|capacity 용량|capture 포착하다|cease 멈추다|challenge 도전|channel 경로|characteristic 특성|circumstance 상황|cite 인용하다|civil 시민의|claim 주장하다|clarify 명확히 하다|classic 고전적인|clue 단서|coincide 동시에 일어나다|collapse 무너지다|colleague 동료|combine 결합하다|comfort 위로|command 명령|commit 저지르다|commodity 상품|compact 소형의|comparable 비교할 만한|compensate 보상하다|competent 유능한|complain 불평하다|complex 복잡한|component 구성 요소|compose 구성하다|concept 개념|concern 걱정|conclude 결론짓다|conduct 수행하다|confess 고백하다|confidence 자신감|confirm 확인하다|conflict 갈등|confuse 혼란시키다|conscious 의식하는|consent 동의|conserve 보존하다|consider 고려하다|consist 이루어져 있다|constant 끊임없는|construct 건설하다|consult 상담하다|contact 접촉|contain 포함하다|content 내용|context 문맥|contrast 대조|convenient 편리한|convert 전환하다|convey 전달하다|convince 설득하다|cooperate 협력하다|cope 대처하다|core 핵심|corporate 기업의|crisis 위기|criterion 기준|critic 비평가|crucial 중대한|cultivate 재배하다|curious 호기심 많은|currency 통화|current 현재의|curve 곡선|cycle 순환|decade 십 년|decline 감소하다|decrease 줄다|dedicate 헌신하다|defeat 패배시키다|defend 방어하다|define 정의하다|definite 확실한|delicate 섬세한|deliver 배달하다|demand 요구|dense 빽빽한|deny 부인하다|deposit 예금|derive 유래하다|desire 욕망|despite ~에도 불구하고|device 장치|devote 바치다|dimension 차원|disaster 재난|discipline 규율|discount 할인|display 전시하다|dispose 처리하다|dispute 분쟁|distinct 뚜렷한|distribute 분배하다|district 지구|disturb 방해하다|diverse 다양한|domestic 국내의|dominant 지배적인|donate 기부하다|dramatic 극적인|drastic 급격한|dynamic 역동적인|eager 열망하는|edit 편집하다|efficient 효율적인|elaborate 정교한|eliminate 제거하다|embarrass 당황시키다|embrace 껴안다|emergency 비상사태|emphasis 강조|emotion 감정|employ 고용하다|enable 가능하게 하다|encounter 마주치다|endure 견디다|enforce 시행하다|engage 참여시키다|enormous 거대한|ensure 확실히 하다|entertain 즐겁게 하다|enthusiasm 열정|entry 입장|essential 필수적인|establish 설립하다|ethnic 민족의|evaluate 평가하다|eventually 결국|evidence 증거|evolve 진화하다|exaggerate 과장하다|examine 조사하다|exceed 초과하다|exception 예외|excess 과도|exclude 제외하다|execute 실행하다|exhaust 지치게 하다|exhibit 전시하다|expense 비용|expert 전문가|explicit 명백한|expose 노출하다|extend 연장하다|extent 정도|external 외부의|extreme 극단적인|facility 시설|factor 요인|faith 믿음|fascinate 매혹하다|fatigue 피로|favor 호의|feasible 실현 가능한|fee 요금|fierce 사나운|financial 재정의|firm 단단한|flexible 유연한|fluent 유창한|formal 공식적인|formula 공식|fortunate 운 좋은|foundation 토대|fragile 깨지기 쉬운|fragment 조각|framework 틀|frequent 빈번한|frustrate 좌절시키다|function 기능|fund 기금|fundamental 근본적인|gain 얻다|gap 틈|gender 성별|generation 세대|generous 관대한|globe 지구본|grab 움켜잡다|gradual 점진적인|grant 허락하다|grasp 이해하다|grief 슬픔|grip 쥐다|guarantee 보증하다|harmony 조화|harsh 가혹한|harvest 수확|hazard 위험 요소|heritage 유산|highlight 강조하다|hint 힌트|horizon 수평선|hostile 적대적인|household 가정|hypothesis 가설|ideal 이상적인|identify 확인하다|ignore 무시하다|illustrate 설명하다|immediate 즉각적인|immigrant 이민자|impact 영향|implement 실행하다|imply 암시하다|impressive 인상적인|incident 사건|income 수입|incorporate 포함하다|indeed 정말로|individual 개인|industry 산업|infant 유아|infer 추론하다|inflation 물가 상승|influence 영향|inhabit 거주하다|initial 처음의|innocent 순진한|inquire 묻다|insight 통찰력|inspect 점검하다|inspire 영감을 주다|install 설치하다|instance 사례|instinct 본능|institute 기관|instruct 지시하다|insult 모욕하다|intellectual 지적인|intend 의도하다|intense 강렬한|interact 상호 작용하다|interfere 방해하다|internal 내부의|interpret 해석하다|interrupt 방해하다|interval 간격|intimate 친밀한|invade 침입하다|invest 투자하다|isolate 고립시키다|issue 쟁점|joint 공동의|journal 일지|judgment 판단|keen 열렬한|label 상표|landscape 풍경|launch 시작하다|legal 법적인|legitimate 합법적인|leisure 여가|liberty 자유|license 면허|likewise 마찬가지로|limit 한계|literally 말 그대로|literature 문학|logic 논리|loyal 충성스러운|luxury 사치|majority 대다수|margin 여백|marine 해양의|mature 성숙한|maximum 최대|mechanism 장치|mental 정신의|merchant 상인|merely 단지|merit 장점|miracle 기적|miserable 비참한|mobile 이동하는|moderate 적당한|modify 수정하다|monitor 감시하다|monotonous 단조로운|motive 동기|multiple 다수의|mutual 상호의|narrative 서사|navigate 항해하다|neglect 무시하다|nevertheless 그럼에도|nonetheless 그렇더라도|norm 규범|nourish 영양을 공급하다|novel 소설|nuclear 핵의|numerous 수많은|obedient 순종하는|objective 객관적인|obligation 의무|observe 관찰하다|obstacle 장애물|obvious 명백한|occasion 경우|occupy 차지하다|odd 이상한|official 공식적인|ongoing 진행 중인|operate 작동하다|optimistic 낙관적인|option 선택지|organ 장기|outcome 결과|outline 개요|output 생산량|overcome 극복하다|overlook 간과하다|oversee 감독하다|overseas 해외의|overwhelm 압도하다|panic 공포|parallel 평행한|parcel 소포|partial 부분적인|passion 열정|passive 수동적인|pause 멈춤|penalty 벌칙|perceive 인식하다|persist 계속하다|personnel 인원|perspective 관점|persuade 설득하다|phenomenon 현상|philosophy 철학|physical 신체의|pioneer 개척자|plot 줄거리|plunge 뛰어들다|poll 여론 조사|portion 부분|portray 묘사하다|pose 자세를 취하다|positive 긍정적인|possess 소유하다|postpone 연기하다|potential 잠재력|poverty 가난|precise 정확한|predict 예측하다|prefer 선호하다|prejudice 편견|preserve 보존하다|prestige 위신|previous 이전의|primary 주요한|principle 원칙|priority 우선순위|privilege 특권|procedure 절차|proceed 진행하다|process 과정|profession 직업|profit 이익|progress 진전|prohibit 금지하다|prominent 두드러진|promote 촉진하다|prompt 즉각적인|proof 증거|property 재산|proportion 비율|propose 제안하다|prospect 전망|prosper 번영하다|provide 제공하다|province 지방|provoke 유발하다|publish 출판하다|pursue 추구하다|quote 인용하다|radical 급진적인|random 무작위의|rate 비율|rational 합리적인|react 반응하다|realize 깨닫다|reasonable 합리적인|rebel 반항하다|recall 기억해 내다|recognize 알아보다|recommend 추천하다|recover 회복하다|recruit 모집하다|refer 언급하다|reflect 반영하다|reform 개혁하다|refuse 거절하다|regard 간주하다|register 등록하다|regulate 규제하다|reject 거부하다|relate 관련시키다|release 풀어 주다|relevant 관련 있는|reliable 믿을 만한|relief 안도|rely 의지하다|remark 발언하다|remedy 치료법|remote 외딴|render 만들다|renew 갱신하다|rent 빌리다|replace 대체하다|represent 대표하다|reputation 평판|request 요청하다|require 요구하다|resemble 닮다|reserve 예약하다|resident 거주자|resist 저항하다|resolve 해결하다|resource 자원|respond 응답하다|restore 복원하다|restrict 제한하다|retain 유지하다|retire 은퇴하다|reveal 드러내다|revenue 수익|reverse 뒤집다|revise 수정하다|revolution 혁명|ridiculous 터무니없는|rigid 엄격한|roughly 대략|routine 일상|rural 시골의|sacrifice 희생|scarce 부족한|scatter 흩뿌리다|scope 범위|secure 안전한|seek 찾다|segment 부분|seize 붙잡다|sensible 분별 있는|sensitive 민감한|sequence 순서|settle 정착하다|severe 심한|shift 바꾸다|significant 중요한|simulate 모의 실험하다|site 장소|skeptical 회의적인|slight 약간의|sophisticated 세련된|specific 구체적인|specify 명시하다|spectacular 장관인|speculate 추측하다|sphere 구|stable 안정된|standard 기준|state 상태|statistics 통계|status 지위|steady 꾸준한|stimulate 자극하다|strategy 전략|strengthen 강화하다|strict 엄격한|submit 제출하다|subsequent 그 다음의|substance 물질|substitute 대체하다|subtle 미묘한|suburb 교외|succeed 성공하다|suffer 고통받다|summarize 요약하다|superior 우월한|supreme 최고의|surround 둘러싸다|survey 조사|suspect 의심하다|sustain 지탱하다|tackle 다루다|target 목표|tension 긴장|terminal 종점|terrify 겁먹게 하다|texture 질감|therapy 치료|tide 조수|tolerate 참다|transfer 옮기다|transform 변형시키다|transmit 전송하다|transport 수송하다|tremendous 엄청난|trend 추세|tribe 부족|trivial 사소한|ultimate 궁극적인|undergo 겪다|universal 보편적인|urban 도시의|urgent 긴급한|utilize 활용하다|vacant 비어 있는|vague 모호한|valid 유효한|vary 다르다|vast 광대한|vehicle 차량|venture 모험|verbal 언어의|verify 확인하다|version 버전|vessel 그릇|vital 필수적인|vivid 생생한|voluntary 자발적인|vote 투표하다|welfare 복지|withdraw 철회하다|witness 목격하다|yield 산출하다|pilot 조종사|chef 요리사|baker 제빵사|barber 이발사|builder 건축업자|carpenter 목수|clerk 점원|clown 광대|cashier 계산원|dentist 치과 의사|detective 탐정|engineer 기술자|firefighter 소방관|fisherman 어부|journalist 기자|lawyer 변호사|manager 관리자|mechanic 정비사|musician 음악가|painter 화가|photographer 사진작가|pianist 피아니스트|plumber 배관공|president 대통령|priest 사제|prisoner 죄수|reporter 취재기자|sailor 선원|secretary 비서|servant 하인|tailor 재단사|tourist 관광객|writer 작가|waiter 종업원|atom 원자|battery 건전지|bacteria 세균|chemical 화학의|cell 세포|crystal 수정|electricity 전기|element 원소|fossil 화석|gravity 중력|gas 기체|laboratory 실험실|magnet 자석|metal 금속|mineral 광물|molecule 분자|orbit 궤도|particle 입자|pollution 오염|radio 라디오|satellite 위성|solar 태양의|telescope 망원경|temperature 온도|thermometer 온도계|volcano 화산|earthquake 지진|flood 홍수|drought 가뭄|tornado 회오리바람|hurricane 허리케인|avalanche 눈사태|glacier 빙하|canyon 협곡|cliff 절벽|cave 동굴|coast 해안|continent 대륙|equator 적도|peninsula 반도|plain 평원|pond 연못|waterfall 폭포|tropical 열대의|arctic 북극의|Korea 한국|China 중국|Japan 일본|America 미국|England 영국|France 프랑스|Germany 독일|Canada 캐나다|Australia 호주|India 인도|Russia 러시아|Italy 이탈리아|Spain 스페인|Brazil 브라질|Egypt 이집트|Africa 아프리카|Asia 아시아|Europe 유럽|north 북쪽|south 남쪽|east 동쪽|west 서쪽|left 왼쪽|ingredient 재료|recipe 요리법|oven 오븐|pan 팬|pot 냄비|fry 튀기다|roast 굽다|slice 조각|bean 콩|nut 견과|pepper 후추|vinegar 식초|honey 꿀|jam 잼|sausage 소시지|sandwich 샌드위치|hamburger 햄버거|pancake 팬케이크|popcorn 팝콘|yogurt 요구르트|pumpkin 호박|cucumber 오이|garlic 마늘|ginger 생강|mushroom 버섯|spinach 시금치|pear 배|plum 자두|cherry 체리|mango 망고|melon 멜론|pineapple 파인애플|coconut 코코넛|olive 올리브|fig 무화과|lettuce 상추|broccoli 브로콜리|toast 토스트|wheat 밀|flour 밀가루|oil 기름|sauce 소스|stew 찌개|steak 스테이크|hammer 망치|nail 못|screw 나사|saw 톱|drill 드릴|ladder 사다리|rope 밧줄|chain 사슬|wire 전선|bucket 양동이|broom 빗자루|shovel 삽|scissors 가위|needle 바늘|thread 실|tape 테이프|glue 풀|envelope 봉투|stamp 우표|calendar 달력|wallet 지갑|purse 손지갑|suitcase 여행 가방|backpack 배낭|helmet 헬멧|flashlight 손전등|candle 양초|match 성냥|fan 선풍기|heater 난방기|refrigerator 냉장고|microwave 전자레인지|vacuum 진공청소기|curtain 커튼|carpet 카펫|fence 울타리|gate 대문|chimney 굴뚝|balcony 발코니|attic 다락방|basement 지하실|garage 차고|elevator 승강기|bat 박쥐|bull 황소|cattle 소 떼|donkey 당나귀|hen 암탉|kitten 새끼 고양이|puppy 강아지|lamb 새끼 양|mule 노새|rooster 수탉|seal 물개|octopus 문어|jellyfish 해파리|lobster 바닷가재|oyster 굴|salmon 연어|swan 백조|parrot 앵무새|pigeon 비둘기|crow 까마귀|peacock 공작|ostrich 타조|kangaroo 캥거루|koala 코알라|panda 판다|gorilla 고릴라|leopard 표범|cheetah 치타|hippo 하마|rhino 코뿔소|crocodile 악어|lizard 도마뱀|worm 벌레|mosquito 모기|ladybug 무당벌레|dragonfly 잠자리|snail 달팽이|badminton 배드민턴|volleyball 배구|swimming 수영|skating 스케이트|skiing 스키|hiking 하이킹|jogging 조깅|marathon 마라톤|gym 체육관|coach 코치|referee 심판|champion 우승자|stadium 경기장|score 득점|medal 메달|trophy 트로피|jealous 질투하는|grumpy 심술궂은|cheerful 쾌활한|anxious 불안한|confident 자신 있는|embarrassed 창피한|hopeful 희망에 찬|joyful 기쁜|relaxed 느긋한|selfish 이기적인|sincere 진심의|stubborn 고집 센|thoughtful 사려 깊은|attend 참석하다|bark 짖다|blow 불다|bounce 튀다|chew 씹다|chase 쫓다|crawl 기다|creep 살금살금 걷다|dig 파다|dive 잠수하다|drag 끌다|drop 떨어뜨리다|fetch 가져오다|flash 번쩍이다|flip 뒤집다|gallop 질주하다|gasp 헉 하고 숨쉬다|glance 힐끗 보다|glow 빛나다|grin 씩 웃다|hug 껴안다|kick 차다|kneel 무릎 꿇다|lick 핥다|lift 들어올리다|mumble 중얼거리다|nod 끄덕이다|pat 쓰다듬다|peek 엿보다|pinch 꼬집다|pray 기도하다|rub 문지르다|scratch 긁다|shiver 떨다|sneeze 재채기하다|spill 쏟다|squeeze 짜다|stretch 늘이다|tickle 간지럽히다|tiptoe 발끝으로 걷다|twist 비틀다|whisper 속삭이다|wink 윙크하다|yawn 하품하다";
+function parse2(t){return t.split('|').map(s=>{const i=s.indexOf(' ');return {w:s.slice(0,i),m:s.slice(i+1),box:0,due:0}}).filter(x=>x.w&&x.m)}
+function parse(t,old){const m={};(old||[]).forEach(x=>m[x.w]=x);return t.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const p=l.split(/[,\t]/).map(s=>s.trim()).filter(Boolean);const w=p.shift();if(!w||!p.length)return null;return m[w]?Object.assign(m[w],{m:p.join(', ')}):{w:w,m:p.join(', '),box:0,due:0}}).filter(Boolean)}
+const newPet=()=>({p:[],xp:0,food:60,fun:60,t:now()});
+let S;
+try{const j=localStorage.getItem('pv1');if(j)S=JSON.parse(j)}catch(e){}
+if(!S)S={words:parse(DEF),xp:0,last:0};
+if(!S.pet){S.pet=newPet();S.pet.xp=S.xp||0}
+if(!S.dex)S.dex=[];if(!S.cookie)S.cookie=0;
+if((S.v||0)<3){const h=new Set(S.words.map(x=>x.w));parse(DEF).concat(parse2(DEF2)).forEach(x=>{if(!h.has(x.w)){h.add(x.w);S.words.push(x)}});S.v=3}
+if((S.v||0)<4){const h=new Set(S.words.map(x=>x.w));parse2(DEF3).forEach(x=>{if(!h.has(x.w)){h.add(x.w);S.words.push(x)}});S.v=4}
+if((S.v||0)<5){const h=new Set(S.words.map(x=>x.w));parse2(DEF4).forEach(x=>{if(!h.has(x.w)){h.add(x.w);S.words.push(x)}});S.v=5}
+function save(){try{localStorage.setItem('pv1',JSON.stringify(S))}catch(e){}}
+/* 펫 */
+const EVO=[2,5,9,14,20,27,35],GRAD=40;
+const STEM=['세라','디아','유니','케르','피닉','드라','골로','크라'],E8=['이그니','글라시','볼타','실바','움브라','마리','루나','아우로'],FIN=[['세라핌','아크엔젤'],['디아볼로','아스모데우스'],['유니콘','페가수스'],['케르베로스','가름'],['피닉스','주작'],['드라곤','바하무트'],['골렘','타이탄'],['크라켄','리바이어던']];
+const lv=p=>Math.floor(p.xp/10)+1;
+const B=p=>[0,1,2,3,4,5,6].map(i=>p[i]||0);
+const bitsOf=id=>[0,1,2,3,4,5,6].map(i=>id>>i&1);
+function nm(b,k){const v=b[0]+2*b[1]+4*b[2],e=b[3]+2*b[4]+4*b[5];
+  if(k<1)return '몽이';if(k<2)return ['루미몬','다키몬'][b[0]];
+  if(k<3)return ['에어루미','에어다키','테라루미','테라다키'][b[0]+2*b[1]];
+  if(k<4)return STEM[v]+'비';
+  if(k<5)return E8[b[3]]+' '+STEM[v]+'몬';
+  if(k<6)return E8[b[3]+2*b[4]]+' '+STEM[v]+'로스';
+  if(k<7)return E8[e]+' '+STEM[v]+'카이저';
+  return E8[e]+' '+FIN[v][b[6]]}
+function hearts(){const d=S.last?Math.floor((now()-S.last)/864e5):0;return Math.max(0,3-d)}
+function tick(){const P=S.pet,h=(now()-P.t)/36e5;P.food=Math.max(0,P.food-3*h);P.fun=Math.max(0,P.fun-4*h);P.t=now()}
+const bonus=()=>hearts()>0&&S.pet.food>=50&&S.pet.fun>=50;
+const HUE=[48,350,320,250,22,140,30,185],EH=[14,195,52,135,265,180,235,44];
+function sprite(b,k,mood){
+  const g=new Array(576).fill(0),v=b[0]+2*b[1]+4*b[2],f=k>2?v:-1,sky=!b[1];
+  const P=(x,y,c=1)=>{x=Math.round(x);y=Math.round(y);if(x>=0&&x<24&&y>=0&&y<24)g[y*24+x]=c},
+  M=(x,y,c)=>{P(x,y,c);P(23-x,y,c)},
+  E=(cx,cy,rx,ry,c=1)=>{for(let y=0;y<24;y++)for(let x=0;x<24;x++)if(((x-cx)/rx)**2+((y-cy)/ry)**2<=1)P(x,y,c)},
+  EM=(d,cy,rx,ry,c)=>{E(11.5-d,cy,rx,ry,c);E(11.5+d,cy,rx,ry,c)},
+  R=(x0,y0,x1,y1,c=1)=>{for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)P(x,y,c)},
+  L=(x0,y0,x1,y1,w=1,c=1)=>{const n=Math.max(Math.abs(x1-x0),Math.abs(y1-y0),1)*2;for(let i=0;i<=n;i++){const x=x0+(x1-x0)*i/n,y=y0+(y1-y0)*i/n;for(let a=0;a<w;a++)for(let e=0;e<w;e++)M(x+a,y+e,c)}};
+  const hw=4+.4*k,hh=3.4+.3*k,hy=8.5,ty=15.5,tw=3+.45*k,th=3.8+.3*k,ht=hy-hh,sx=11.5-tw*.8,sy=ty-th*.5;
+  const wt=f<0?0:[0,1,0,1,2,1,0,0][f];
+  const W=(len,a0,a1)=>{const n=36;for(let i=0;i<=n;i++){const a=a0+(a1-a0)*i/n;let r=len;
+    if(wt==0)r*=i%4==0?1:.8;else if(wt==1)r*=.65+.35*Math.abs(Math.sin(i/n*Math.PI*3));else r*=.5+.5*((i*5)%7)/6;
+    L(sx,sy,sx-Math.cos(a)*r,sy-Math.sin(a)*r,1,2)}};
+  if(k>6){if(b[6])for(let i=0;i<40;i++){const a=i/40*6.283;P(11.5+Math.cos(a)*11,11.5+Math.sin(a)*11,2);P(11.5+Math.cos(a)*10,11.5+Math.sin(a)*10,2)}
+    else[[2,3],[20,3],[3,19],[20,19]].forEach(([x,y])=>[[0,0],[1,0],[-1,0],[0,1],[0,-1],[2,0],[-2,0],[0,2],[0,-2]].forEach(([dx,dy])=>P(x+dx,y+dy,2)))}
+  if(k>1&&sky){const len=3+k*.6+(f==5?1.5:0);W(k>4&&b[4]?len*1.3:len,-.3,1.5);if(k>4&&b[4])W(len*.9,-1.2,.2)}
+  if(k>1&&!sky){L(sx,ty-1,sx-2-k*.3,ty+2+k*.2,2);if(k>4&&b[4]){EM(tw+.5,sy-1,2.6,2,2);L(sx,sy-2,sx-2,sy-6,1,2);L(sx+2,sy-2,sx+1,sy-6,1,2)}}
+  if(k>2&&![0,6,7].includes(f)){const len=4+k*.6,x0=11.5+tw*.7,y0=ty+th*.5;let X=x0,Y=y0;
+    for(let i=0;i<=len;i++){X=x0+i*.7;Y=y0-Math.sin(i/len*3)*3+i*.15;P(X,Y);P(X,Y+1)}
+    if(k>5&&b[5])[-5,-2.5,0,2.5,5].forEach(d=>{for(let s=0;s<=1;s+=.12)P(X+s*2.5,Y+d*s,2)});else E(X+1,Y,1.6,1.6,2)}
+  if(k>5&&b[5]&&[0,6,7].includes(f))EM(8.5,4,2.2,2.2,2);
+  if(f==6){R(Math.round(11.5-hw),Math.round(ht),Math.round(11.5+hw)-1,Math.round(hy+hh));R(Math.round(11.5-tw),Math.round(ty-th),Math.round(11.5+tw)-1,Math.round(ty+th))}
+  else{E(11.5,ty,tw,th);E(11.5,hy,hw,hh)}
+  if(k>5&&b[5])E(11.5,hy+hh,hw*1.5,2.2,2);
+  if(k>5&&b[5])for(let x=2;x<22;x++){P(x,23,2);if(x%2==0)P(x,22,2);if(x%4==0)P(x,21,2)}
+  if(k>0&&f!=7)EM(tw*.6,ty+th-.5,2,1.4);
+  if(f==7)for(let j=0;j<2+(k>4&&b[4]?2:0);j++)for(let i=0;i<9;i++){const x=11.5-tw*(.3+j*.28)-Math.sin(i*.7+j)*1.5;M(x,ty+th*.6+i*.6,1);M(x+1,ty+th*.6+i*.6,1)}
+  if(k==1||k==2){if(b[0])L(11.5-hw*.6,ht+.5,11.5-hw*.9,ht-2.5,1);else EM(hw*.75,ht+.5,1.7,1.7)}
+  if(f==0){E(11.5,ht-1.8,4.5,1.6,2);E(11.5,ht-1.8,2.6,.6,0)}
+  if(f==1){L(11.5-hw*.6,ht+1,11.5-hw*.95,ht-2-k*.25,2);L(11.5-hw*.95,ht-2-k*.25,11.5-hw*.45,ht-4-k*.3,1)}
+  if(f==2){for(let y=0;y<4+k*.5;y++)M(11,ht-y,2);EM(hw*.8,ht+1,1.2,2)}
+  if(f==3){L(11.5-hw*.7,ht+1,11.5-hw*.9,ht-3-k*.2,2);E(11.5,hy+hh*.6,2.6,1.8)}
+  if(f==4){L(11,ht,11,ht-3-k*.4,1,2);L(9.5,ht+.5,8,ht-2-k*.3,1,2)}
+  if(f==5){L(11.5-hw*.6,ht+.5,11.5-hw*1.4,ht-2-k*.2,2);E(11.5,hy+hh*.55,3,2)}
+  if(f==6){L(11,ht,11,ht-3-k*.3,1,2);L(9,ht,8,ht-2,1,2)}
+  if(f==7)for(let i=0;i<4;i++)M(11-i*2,ht-1-(i%2),2);
+  if(k>3){if(b[3])L(11.5-hw*.9,ht,11.5-hw*1.5,ht-4-k*.3,2,2);else for(let i=0;i<3;i++)L(10-i*1.8,ht,10-i*1.8,ht-2-(i?0:2),1,2)}
+  if(k>6&&b[6]){M(11,Math.round(hy-3),2);M(11,Math.round(hy-4),2)}
+  if(k>6)b[6]?E(11.5,22.8,9,1.1,5):[[11,0],[11,1],[11,2],[10,1],[9,1]].forEach(([x,y])=>M(x,y,3));
+  if(f!=6)E(11.5,ty+1,tw*.5,th*.5,4);else for(let i=0;i<th*1.6;i++)P(11+i%2,ty-th+1+i,3);
+  const ex=Math.round(11.5-hw*.5),my=Math.round(hy+hh*.55);
+  if(mood==0){M(ex,hy+1,3);M(ex+1,hy+1,3)}
+  else if(f==1||f==3||f==5){M(ex,hy,3);M(ex+1,hy-1,3)}
+  else{M(ex,hy-1,3);M(ex,hy,3);M(ex+1,hy-1,3);M(ex+1,hy,3)}
+  if(mood>1){M(10,my,5);M(11,my,5);M(9,my-1,5)}else M(11,my,5);
+  const h=(k<1?160:k<3?[48,270][b[0]]:HUE[v])+(k>6&&b[6]?28:0),ei=b[3]+2*b[4]+4*b[5],ah=k>3?EH[ei]:h;
+  const o=g.slice();for(let y=0;y<24;y++)for(let x=0;x<24;x++)if(!g[y*24+x])for(const[dx,dy]of[[1,0],[-1,0],[0,1],[0,-1]]){const X=x+dx,Y=y+dy;if(X>=0&&X<24&&Y>=0&&Y<24&&g[Y*24+X]){o[y*24+x]=5;break}}
+  const CL={1:'hsl('+h+',60%,40%)',2:'hsl('+ah+',85%,58%)',3:'hsl('+ah+',100%,78%)',4:'hsl('+h+',55%,74%)',5:'hsl('+h+',55%,13%)'};
+  let r='<svg class="bb'+(k>3?' gl':'')+(k>6?' g7':'')+'" style="--gl:hsl('+ah+',95%,60%)" viewBox="0 0 24 24" shape-rendering="crispEdges" aria-hidden="true">';
+  o.forEach((c,i)=>{if(c)r+='<rect x="'+i%24+'" y="'+(i/24|0)+'" width="1" height="1" fill="'+CL[c]+'"/>'});
+  return r+'</svg>'}
+function say(t){$('say').textContent=t}
+function hop(){['pet','big'].forEach(i=>{const e=$(i);e.classList.remove('hop');void e.offsetWidth;e.classList.add('hop')})}
+function paint(){
+  tick();gmPaint();const P=S.pet,k=P.p.length,b=B(P.p),h=hearts(),L=lv(P);
+  const m=h==0?0:(P.food>=30&&P.fun>=30?2:1),sv=sprite(b,k,m);
+  $('pet').innerHTML=sv;$('big').innerHTML=sv;
+  $('hp').textContent='♥'.repeat(h)+'♡'.repeat(3-h);
+  $('lv').textContent='Lv.'+L+(bonus()?' x2':'');$('xp').style.width=(P.xp%10)*10+'%';
+  $('pn').textContent=nm(b,k)+' (Lv.'+L+')';
+  $('f').style.width=P.food+'%';$('u').style.width=P.fun+'%';$('ck').textContent='쿠키 '+S.cookie+'개, 하트 '+h+'/3';
+  $('t2').textContent=((k<7&&L>=EVO[k]&&h>0)||(k==7&&L>=GRAD))?'펫 ●':'펫';
+  const e=$('evo'),o=$('evt');if(o)o.remove();e.innerHTML='';
+  if(k<7&&L>=EVO[k]){
+    if(h<1)e.textContent='하트가 없어서 진화할 수 없어요. 단어를 학습해 하트를 채우세요.';
+    else{const t=document.createElement('p');t.textContent='진화할 수 있어요! 갈래를 고르세요.';e.parentNode.insertBefore(t,e);t.id='evt';
+      [0,1].forEach(c=>{const bt=document.createElement('button'),nb=B(P.p.concat(c));bt.innerHTML=sprite(nb,k+1,2)+'<span>'+nm(nb,k+1)+'</span>';bt.onclick=()=>{P.p.push(c);save();paint();evoFx()};e.appendChild(bt)})}
+  }else if(k==7&&L>=GRAD){
+    const bt=document.createElement('button');bt.textContent='도감에 등록하고 새 펫 맞이하기';
+    bt.onclick=()=>{const id=b.reduce((s,v,i)=>s+(v<<i),0);if(!S.dex.includes(id))S.dex.push(id);S.pet=newPet();save();paint();snd('pass');say('도감에 등록했어요! 새 알이 왔어요.')};e.appendChild(bt)}
+  else e.textContent=k<7?'다음 진화는 Lv.'+EVO[k]:'도감 등록(졸업)은 Lv.'+GRAD;
+}
+$('fd').onclick=()=>{tick();if(S.cookie<1){snd('no');say('쿠키가 없어요. 단어를 외우면 얻어요.');return}S.cookie--;S.pet.food=Math.min(100,S.pet.food+35);snd('feed');save();paint();hop();say('냠냠!')};
+$('pl').onclick=()=>{tick();S.pet.fun=Math.min(100,S.pet.fun+30);S.pet.food=Math.max(0,S.pet.food-8);snd('play');save();paint();hop();say('신나요!')};
+function dexDraw(){const g=$('dg');g.innerHTML='';
+  for(let i=0;i<128;i++){const d=document.createElement('div');d.className='c';
+    if(S.dex.includes(i)){const b=bitsOf(i);d.innerHTML=sprite(b,7,2);d.onclick=()=>{$('dn').textContent=nm(b,7)}}else{d.innerHTML=sprite(bitsOf(i),7,2);d.classList.add('lk');d.onclick=()=>{$('dn').textContent='??? 아직 만나지 못했어요'}}g.appendChild(d)}
+  $('dc').textContent='도감 '+S.dex.length+'/128, 최종 진화한 펫이 여기에 모여요.'}
+/* 학습 */
+let R=null;
+function dueN(){const n=now();return S.words.filter(x=>x.due<=n).length}
+function start(){const n=now(),l=S.words.map((x,i)=>i).filter(i=>S.words[i].due<=n).sort((a,b)=>S.words[a].box-S.words[b].box).slice(0,10);R=l.length?{ph:0,l:l,i:0,ok:0,bad:[],t:[],busy:false}:null;draw()}
+function keys(list,four){const k=$('keys');k.innerHTML='';k.className=four?'keys k4':'keys';list.forEach(([t,f])=>{const b=document.createElement('button');b.textContent=t;b.onclick=f;k.appendChild(b)})}
+function inf(t){$('info').textContent=t}
+function draw(){
+  const learned=S.words.filter(x=>x.box>=3).length,tot='복습 대기 '+dueN()+'개, 외운 단어 '+learned+'개, 전체 '+S.words.length+'개';
+  $('sp').hidden=true;
+  if(!R){$('w').textContent=S.words.length?'오늘 끝!':'단어장이 비었어요';$('m').textContent=S.words.length?'펫과 놀아 주고 내일 또 만나요':'단어장 탭에서 단어를 추가하세요';inf(tot);keys(dueN()?[['시작',start]]:[]);return}
+  if(R.ph==0){const w=S.words[R.l[R.i]];$('w').textContent=w.w;$('m').textContent=w.m;$('sp').hidden=false;inf('외우기 '+(R.i+1)+'/'+R.l.length+', 다 보면 퀴즈를 풀어요');keys([[R.i<R.l.length-1?'다음':'퀴즈 시작',learnNext]]);return}
+  if(R.ph==2){const full=R.ok==R.t.length;$('w').textContent='결과 '+R.ok+'/'+R.t.length;$('m').textContent=full?'만점! 보너스 경험치 +3, 쿠키 +1':(R.bad.length?'틀린 단어: '+R.bad.map(w=>w.w).join(', '):'');inf(tot);keys(dueN()?[['다음 10개',start]]:[]);return}
+  const q=R.t[R.i];$('w').textContent=q.p;$('m').textContent='';$('sp').hidden=!q.d;inf('퀴즈 '+(R.i+1)+'/'+R.t.length+', 맞힌 개수 '+R.ok);
+  keys(q.c.map((c,j)=>[c.s,()=>qpick(j)]),true)}
+function learnNext(){if(!R||R.ph!=0)return;if(R.i<R.l.length-1){R.i++;draw()}else buildTest()}
+function buildTest(){R.ph=1;R.i=0;
+  R.t=R.l.slice().sort(()=>Math.random()-.5).map(idx=>{const w=S.words[idx],d=Math.random()<.5,A=x=>d?x.m:x.w,seen=new Set([A(w)]),c=[{s:A(w)}];
+    for(const x of S.words.filter(x=>x.w!==w.w).sort(()=>Math.random()-.5)){if(c.length>3)break;if(!seen.has(A(x))){seen.add(A(x));c.push({s:A(x)})}}
+    return{idx:idx,d:d,p:d?w.w:w.m,a:A(w),c:c.sort(()=>Math.random()-.5)}});
+  snd('start');draw()}
+function qpick(j){if(!R||R.ph!=1||R.busy)return;R.busy=true;const q=R.t[R.i],w=S.words[q.idx],r=q.c[j].s===q.a,n=now();
+  const bs=[...$('keys').children];bs.forEach((b,x)=>{b.disabled=true;if(q.c[x].s===q.a)b.classList.add('ok')});if(!r)bs[j].classList.add('no');
+  if(r){snd('ok');tick();w.box=Math.min(5,w.box+1);w.due=n+IV[w.box];S.pet.xp+=bonus()?2:1;S.cookie++;S.know=(S.know||0)+1;R.ok++}
+  else{snd('no');w.box=0;w.due=0;R.bad.push(w)}
+  S.last=n;save();paint();
+  setTimeout(()=>{R.busy=false;R.i++;R.i<R.t.length?draw():finish()},r?500:1100)}
+function finish(){R.ph=2;if(R.ok==R.t.length){S.pet.xp+=3;S.cookie++}snd(R.ok>=8?'pass':'fail');save();paint();draw()}
+$('sp').onclick=()=>{if(!R)return;try{const i=R.ph==0?R.l[R.i]:R.t[R.i].idx,u=new SpeechSynthesisUtterance(S.words[i].w);u.lang='en-US';speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}};
+document.addEventListener('keydown',e=>{if(e.target.tagName=='TEXTAREA'||G||!R)return;
+  if(R.ph==0&&(e.key==' '||e.key=='Enter')){e.preventDefault();learnNext()}
+  else if(R.ph==1&&/^[1-4]$/.test(e.key))qpick(+e.key-1)});
+function tab(n){[2,3,4].forEach(i=>$('p'+i).hidden=i!=n);[1,2,3,4].forEach(i=>$('t'+i).setAttribute('aria-pressed',i==n));
+  if(n==3)dexDraw();if(n==4)$('ta').value=S.words.map(x=>x.w+', '+x.m).join('\n')}
+[1,2,3,4].forEach(i=>$('t'+i).onclick=()=>tab(i));
+$('sv').onclick=()=>{S.words=parse($('ta').value,S.words);save();$('msg').textContent='저장했어요. 단어 '+S.words.length+'개';start()};
+$('rs').onclick=()=>{if(!confirm('단어 진도를 초기화할까요? 펫은 그대로예요.'))return;S.words.forEach(x=>{x.box=0;x.due=0});save();$('msg').textContent='진도를 초기화했어요.';start()};
+let G=null;
+function gmPaint(){const n=S.know||0,g=$('gm');g.innerHTML='';if(G)return;const t=document.createElement('div');t.textContent='미니게임까지 퀴즈 정답 '+Math.min(n,50)+'/50'+(n>=100?' (도전 '+Math.floor(n/50)+'번 가능)':'');g.appendChild(t);if(n>=50){const b=document.createElement('button');b.textContent='단어 퀴즈 도전! (통과하면 경험치 +30)';b.onclick=startGame;g.appendChild(b)}}
+function startGame(){if((S.know||0)<50||G)return;S.know-=50;save();const pool=S.words.filter(x=>x.box>=1),src=(pool.length>=10?pool:S.words).slice().sort(()=>Math.random()-.5).slice(0,10);G={qs:src,i:0,ok:0,bad:[]};snd('start');[2,3,4].forEach(i=>$('p'+i).hidden=true);$('pg').hidden=false;gmPaint();ask()}
+function ask(){const w=G.qs[G.i];$('gh').textContent='단어 퀴즈 '+(G.i+1)+'/10, 맞힌 개수 '+G.ok;$('gq').textContent=w.m;$('gr').textContent='';const ch=[w].concat(S.words.filter(x=>x.w!==w.w&&x.m!==w.m).sort(()=>Math.random()-.5).slice(0,3)).sort(()=>Math.random()-.5),c=$('gc');c.innerHTML='';ch.forEach(x=>{const b=document.createElement('button');b.textContent=x.w;if(x===w)b.dataset.r=1;b.onclick=()=>pick(b,x===w);c.appendChild(b)})}
+function pick(b,r){const bs=[...$('gc').children];bs.forEach(x=>x.disabled=true);if(r){G.ok++;snd('ok')}else{G.bad.push(G.qs[G.i]);snd('no')}bs.forEach(x=>{if(x.dataset.r)x.classList.add('ok')});b.classList.add(r?'ok':'no');setTimeout(()=>{G.i++;G.i<10?ask():fin()},r?500:1100)}
+function fin(){const pass=G.ok>=8;G.bad.forEach(w=>{w.box=0;w.due=0});if(pass){S.pet.xp+=30;S.cookie+=5}snd(pass?'pass':'fail');save();$('gh').textContent='결과 '+G.ok+'/10';$('gq').textContent=pass?'통과! 경험치 +30, 쿠키 +5':'아쉬워요. 8개 이상 맞혀야 통과예요.';$('gr').textContent=G.bad.length?'틀린 단어는 복습 목록에 다시 들어가요: '+G.bad.map(w=>w.w).join(', '):'';const c=$('gc');c.innerHTML='';const b=document.createElement('button');b.textContent='닫기';b.onclick=()=>{G=null;$('pg').hidden=true;save();paint();start()};c.appendChild(b)}
+let AC,MUTE=false;try{MUTE=localStorage.getItem('pvm')=='1'}catch(e){}
+function snd(n){if(MUTE)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();if(AC.state=='suspended')AC.resume();
+ const T={feed:[[523,0,.08],[659,.09,.08],[784,.18,.14]],play:[[392,0,.07],[523,.08,.07],[659,.16,.07],[784,.24,.12]],ok:[[659,0,.07],[988,.08,.14]],no:[[196,0,.16,'sawtooth'],[147,.14,.22,'sawtooth']],start:[[440,0,.08],[587,.09,.12]],pass:[[523,0,.1],[659,.11,.1],[784,.22,.1],[1047,.33,.35]],fail:[[330,0,.15],[262,.16,.15],[196,.32,.3,'triangle']],evo:[[262,0,.1],[330,.1,.1],[392,.2,.1],[523,.3,.1],[659,.4,.1],[784,.5,.1],[1047,.6,.5,'triangle']]}[n];
+ T.forEach(([f,d0,d,ty])=>{const o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+d0;o.type=ty||'square';o.frequency.value=f;g.gain.setValueAtTime(.001,s);g.gain.exponentialRampToValueAtTime(.07,s+.01);g.gain.exponentialRampToValueAtTime(.001,s+d);o.connect(g);g.connect(AC.destination);o.start(s);o.stop(s+d+.02)})}catch(e){}}
+function muLabel(){$('mu').textContent=MUTE?'소리 꺼짐':'소리 켜짐'}
+$('mu').onclick=()=>{MUTE=!MUTE;try{localStorage.setItem('pvm',MUTE?'1':'0')}catch(e){}muLabel();snd('ok')};muLabel();
+function evoFx(){const P=S.pet,k=P.p.length,b=B(P.p),f=$('fx');$('fxs').innerHTML=sprite(b,k,2);$('fxt').textContent='\u2728 진화! '+nm(b,k)+' \u2728';f.hidden=false;snd('evo');const c=()=>{f.hidden=true};f.onclick=c;setTimeout(c,2800)}
+$('ex').onclick=()=>{const b=new Blob([JSON.stringify(S)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mongle-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1e3);$('msg').textContent='백업 파일을 저장했어요.'};
+$('im').onclick=()=>$('fi').click();
+$('fi').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(x=>{try{const o=JSON.parse(x);if(!o.words||!o.pet)throw 0;S=o;save();location.reload()}catch(err){$('msg').textContent='백업 파일이 올바르지 않아요.'}})};
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+paint();start();setInterval(paint,6e4);
+</script></body></html>
