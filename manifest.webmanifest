@@ -1,6 +1,6 @@
 {
-  "name": "몽글 단어장",
-  "short_name": "몽글 단어장",
+  "name": "몽이 단어장",
+  "short_name": "몽이 단어장",
   "lang": "ko",
   "start_url": "./index.html",
   "scope": "./",
