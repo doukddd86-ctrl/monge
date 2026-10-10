@@ -1,4 +1,4 @@
-몽글 단어장 (PWA) 설치 방법
+몽이 단어장 (PWA) 설치 방법
 
 1. 이 폴더 안의 파일 전체를 무료 호스팅(GitHub Pages, Netlify 등)에 올려요.
    - index.html, manifest.webmanifest, sw.js, icons 폴더가 같은 위치에 있어야 해요.
